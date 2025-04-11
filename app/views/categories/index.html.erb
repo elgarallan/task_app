@@ -11,7 +11,7 @@
 
 <!-- Categories Container -->
 <div class="categories-container">
-  <h2>What are your tasks today?</h2>
+  <h2>Organize your life.</h2>
 
   <!-- Add Category Button -->
   <p class="signup-link">
@@ -65,4 +65,30 @@
       </div>
     <% end %>
   </div>
+</div>
+
+  <!-- Today’s Tasks -->
+<div class="task-box">
+  <h3 class="text-xl font-semibold text-center mb-4 blink">Tasks Due Today!</h3>
+
+  <% if @today_tasks.any? %>
+    <ul class="task-list">
+      <% @today_tasks.each do |task| %>
+        <li class="task-item">
+         <strong><%= task.name %></strong> (from <%= task.category.title %>)
+          <div class="task-actions">
+            <%= link_to edit_category_task_path(task.category, task), class: "edit-task-btn", title: "Edit Task" do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+
+            <%= button_to category_task_path(task.category, task), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-task-btn", title: "Delete Task" do %>
+              <i class="fa-solid fa-check"></i>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No tasks due today!</p>
+  <% end %>
 </div>

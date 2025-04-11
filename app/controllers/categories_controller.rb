@@ -3,7 +3,10 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [ :edit, :update, :destroy ]
 
   def index
-    @categories = current_user.categories
+    @categories = current_user.categories.includes(:tasks)
+    @today_tasks = Task.joins(:category)
+                       .where(categories: { user_id: current_user.id })
+                       .where(due_date: Date.today)
   end
 
   def new
