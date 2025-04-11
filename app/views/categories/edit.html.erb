@@ -1,0 +1,20 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Edit Category</h2>
+
+    <%= form_with(model: @category, local: true) do |f| %>
+      <p class="input-field">
+        <%= f.label 'Category Name' %>
+        <%= f.text_field :title, class: "input-box" %>
+      </p>
+
+      <p class="login-button">
+        <%= f.submit "Update Category", class: "btn-login" %>
+      </p>
+    <% end %>
+
+    <p class="signup-link">
+      <%= link_to 'Back to Dashboard', root_path, class: "signup-btn" %>
+    </p>
+  </div>
+</div>

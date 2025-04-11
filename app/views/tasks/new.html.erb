@@ -1,0 +1,25 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>New Task for <%= @category.title %></h2>
+
+    <%= form_with(model: [@category, @task], local: true) do |f| %>
+      <p class="input-field">
+        <%= f.label 'Task Name' %>
+        <%= f.text_field :name, class: "input-box" %>
+      </p>
+
+      <p class="input-field">
+        <%= f.label 'Due Date' %>
+        <%= f.date_field :due_date, class: "input-box" %>
+      </p>
+
+      <p class="login-button">
+        <%= f.submit "Create Task", class: "btn-login" %>
+      </p>
+    <% end %>
+
+    <p class="signup-link">
+      <%= link_to 'Back to Dashboard', root_path, class: "signup-btn" %>
+    </p>
+  </div>
+</div>

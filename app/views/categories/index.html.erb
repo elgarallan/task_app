@@ -1,0 +1,68 @@
+<!-- Header Container -->
+<div class="header">
+  <!-- Left: Username -->
+  <h1 class="username">Welcome, <%= current_user.email %>!</h1>
+
+  <!-- Right: Logout Button -->
+  <div class="logout-button">
+    <%= link_to 'Sign Out', destroy_user_session_path, data: { turbo_method: :delete }, class: "logout" %>
+  </div>
+</div>
+
+<!-- Categories Container -->
+<div class="categories-container">
+  <h2>What are your tasks today?</h2>
+
+  <!-- Add Category Button -->
+  <p class="signup-link">
+    <%= link_to 'Add Category', new_category_path, class: "signup-btn" %>
+  </p>
+
+  <!-- Categories Grid -->
+  <div class="categories-grid">
+    <% @categories.each do |category| %>
+      <div class="category-box">
+        <h3><%= category.title %></h3>
+    
+        <!-- Category Actions -->
+        <div class="category-actions">
+          <%= link_to edit_category_path(category), class: "edit-btn", title: "Edit Category" do %>
+            <i class="fa-solid fa-pen"></i>
+          <% end %>
+
+          <%= button_to category_path(category), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-btn", title: "Delete Category" do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </div>
+
+        <!-- Tasks List -->
+        <ul class="task-list">
+          <% if category.tasks.any? %>
+            <% category.tasks.each do |task| %>
+              <li class="task-item">
+                <span class="task-name"><%= task.name %></span>
+                <div class="task-actions">
+                  <%= link_to edit_category_task_path(category, task), class: "edit-task-btn", title: "Edit Task" do %>
+                    <i class="fa-solid fa-pen"></i>
+                  <% end %>
+
+                  <%= button_to category_task_path(category, task), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-task-btn", title: "Delete Task" do %>
+                    <i class="fa-solid fa-check"></i>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <li>No tasks yet.</li>
+          <% end %>
+        </ul>
+
+        <!-- Add Task Link -->
+        <p>
+          <%= link_to "Add Task", new_category_task_path(category), class: "add-task-btn" %>
+        </p>
+    
+      </div>
+    <% end %>
+  </div>
+</div>
