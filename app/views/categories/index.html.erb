@@ -22,7 +22,8 @@
   <div class="categories-grid">
     <% @categories.each do |category| %>
       <div class="category-box">
-        <h3><%= category.title %></h3>
+        <!--<h3><%= category.title %></h3>-->
+        <h3><%= link_to category.title, category_path(category) %></h3>
     
         <!-- Category Actions -->
         <div class="category-actions">

@@ -1,0 +1,44 @@
+<!-- Header Container -->
+<div class="header">
+  <!-- Left: Username -->
+  <h1 class="username">Welcome, <%= current_user.email %>!</h1>
+
+  <!-- Right: Logout Button -->
+  <div class="logout-button">
+    <%= link_to 'Sign Out', destroy_user_session_path, data: { turbo_method: :delete }, class: "logout" %>
+  </div>
+</div>
+
+<div class="categories-container">
+    <h1><%= @category.title %></h1>
+    <br> 
+
+    <!-- Tasks List -->
+        <ul class="task-box">
+          <% if @tasks.any? %>
+            <% @tasks.each do |task| %>
+              <li class="task-item">
+                <span class="task-name"><%= task.name %></span>
+                <div class="task-actions">
+                  <%= link_to edit_category_task_path(@category, task), class: "edit-task-btn", title: "Edit Task" do %>
+                    <i class="fa-solid fa-pen"></i>
+                  <% end %>
+
+                  <%= button_to category_task_path(@category, task), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-task-btn", title: "Delete Task" do %>
+                    <i class="fa-solid fa-check"></i>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <li>No tasks in this category yet.</li>
+          <% end %>
+        </ul>
+        <br>
+
+    <div class="signup-link">
+        <%= link_to "Add Task", new_category_task_path(@category), class: "signup-btn" %> |
+        <%= link_to "Edit Category", edit_category_path(@category), class: "signup-btn" %> |
+        <%= link_to "Back to Categories", root_path, class: "signup-btn" %>
+    </div>
+</div>

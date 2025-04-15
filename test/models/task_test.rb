@@ -23,7 +23,7 @@ class TaskTest < ActiveSupport::TestCase
     assert @task.valid?
   end
 
-  test "title should be present" do
+  test "name should be present" do
     @task.name = ""
     assert_not @task.valid?
     assert_includes @task.errors[:name], "can't be blank"

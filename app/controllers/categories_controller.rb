@@ -22,6 +22,16 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def show
+    @category = current_user.categories.find_by(id: params[:id])
+
+    if @category.nil?
+      redirect_to root_path, alert: "Category not found"
+    else
+      @tasks = @category.tasks
+    end
+  end
+
   def edit; end
 
   def update
