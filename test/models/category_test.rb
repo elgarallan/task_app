@@ -1,17 +1,9 @@
 require "test_helper"
 
 class CategoryTest < ActiveSupport::TestCase
-  def setup
-    @user = User.create!(
-      email: "test@example.com",
-      password: "password123",
-      password_confirmation: "password123"
-    )
-
-    @category = Category.new(
-      title: "Test Category",
-      user: @user
-    )
+  setup do
+    @user = users(:one)
+    @category = categories(:one)
   end
 
   test "should be valid" do
@@ -36,7 +28,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "should destroy associated tasks when category is destroyed" do
-    @category.save
+    @category.tasks.destroy_all
 
     @task = @category.tasks.create!(name: "Test Task")
 
@@ -46,7 +38,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "can have many tasks" do
-    @category.save
+    @category.tasks.destroy_all
     task1 = @category.tasks.create!(name: "Task 1")
     task2 = @category.tasks.create!(name: "Task 2")
 

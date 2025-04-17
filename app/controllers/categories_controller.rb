@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_category, only: [ :edit, :update, :destroy ]
 
   def index
@@ -16,8 +15,9 @@ class CategoriesController < ApplicationController
   def create
     @category = current_user.categories.build(category_params)
     if @category.save
-      redirect_to root_path, alert: "Category created successfully!"
+      redirect_to root_path, notice: "Category created successfully!"
     else
+      flash.now[:alert] = "There was a problem creating the category."
       render :new, status: :unprocessable_entity
     end
   end
@@ -38,6 +38,7 @@ class CategoriesController < ApplicationController
     if @category.update(category_params)
       redirect_to root_path, notice: "Category updated successfully!"
     else
+      flash.now[:alert] = "There was a problem updating the category."
       render :edit, status: :unprocessable_entity
     end
   end

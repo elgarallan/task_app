@@ -1,22 +1,10 @@
 require "test_helper"
 
 class TaskTest < ActiveSupport::TestCase
-  def setup
-    @user = User.create!(
-      email: "test@example.com",
-      password: "password123",
-      password_confirmation: "password123"
-    )
-
-    @category = Category.create!(
-      title: "Test Category",
-      user: @user
-    )
-
-    @task = Task.new(
-      name: "Test Task",
-      category: @category
-    )
+  setup do
+    @user = users(:one)
+    @category = categories(:one)
+    @task = tasks(:one)
   end
 
   test "should be valid" do

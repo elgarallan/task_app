@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_category
 
   def new
@@ -11,6 +10,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to root_path, notice: "Task added successfully!"
     else
+      flash.now[:alert] = "There was a problem adding the task."
       render :new, status: :unprocessable_entity
     end
   end
@@ -24,6 +24,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to root_path, notice: "Task updated successfully!"
     else
+      flash.now[:alert] = "There was a problem updating the task."
       render :edit, status: :unprocessable_entity
     end
   end
